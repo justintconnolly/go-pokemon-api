@@ -1,0 +1,5 @@
+go.mod
+go.sum
+raw-data/csvs/
+main.go
+test_env_config.go
