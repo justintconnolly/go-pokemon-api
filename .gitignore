@@ -1,5 +1,5 @@
 go.mod
 go.sum
-raw-data/csvs/
+raw-data/
 main.go
 test_env_config.go
