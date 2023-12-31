@@ -3,13 +3,16 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
+	"net/http"
+	"os"
 
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
-func connectToDatabase() (*sql.DB, error) {
-	connStr := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=%s", user, password, dbname, sslmode)
-	db, err := sql.Open("postgres", connStr)
+func connectToDatabase(dbUrl string) (*sql.DB, error) {
+	db, err := sql.Open("postgres", dbUrl)
 	if err != nil {
 		fmt.Println("Could not connect to the database.")
 		return nil, err
@@ -19,14 +22,26 @@ func connectToDatabase() (*sql.DB, error) {
 }
 
 func main() {
-	fmt.Println("Best Pokemon API ever ;)")
+	godotenv.Load(".env")
 
-	connStr := "user=your_username password=your_password dbname=your_database sslmode=disable"
-
-	db, err := sql.Open("postgres", connStr)
-	if err != nil {
-		panic(err)
+	portString := os.Getenv("PORT")
+	if portString == "" {
+		log.Fatal("PORT is not found in the environment")
 	}
-	defer db.Close() // Ensure the connection is closed
 
+	dbURL := os.Getenv("DB_URL")
+	if dbURL == "" {
+		log.Fatal("DB_URL is not found in the environment")
+	}
+
+	dbConn, err := connectToDatabase(dbURL)
+	if err != nil {
+		log.Fatal("Error connecting to the database", err)
+	}
+	defer dbConn.Close() // Ensure the connection is closed
+
+	//api logic will go here and utilize the database connection called db
+	http.HandleFunc("/api/v1/pokemon/", getPokemonByName) //TODO func from handler_pokemon.go undefined
+
+	http.ListenAndServe(":8080", nil)
 }
