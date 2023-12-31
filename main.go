@@ -41,7 +41,11 @@ func main() {
 	defer dbConn.Close() // Ensure the connection is closed
 
 	//api logic will go here and utilize the database connection called db
-	http.HandleFunc("/api/v1/pokemon/", getPokemonByName) //TODO func from handler_pokemon.go undefined
+	http.HandleFunc("/api/v1/pokemon/", getPokemonByName)
 
 	http.ListenAndServe(":8080", nil)
+
+	log.Printf("Server starting on port %v", portString)
+
+	fmt.Println("Port:", portString)
 }

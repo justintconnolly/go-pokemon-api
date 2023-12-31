@@ -12,7 +12,7 @@ import (
 	"github.com/justintconnolly/pokemon-api/models"
 )
 
-func GetPokemonByName(w http.ResponseWriter, r *http.Request) {
+func getPokemonByName(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load(".env")
 
 	portString := os.Getenv("PORT")
@@ -35,7 +35,7 @@ func GetPokemonByName(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Execute the SQL query to fetch the Pokemon data
-	row := db.QueryRow("SELECT name, pokedex_number, type1, generation FROM poketest WHERE name = $1", pokemonName)
+	row := db.QueryRow("SELECT name, pokedex_number, type1, generation FROM pokemon WHERE name = $1", pokemonName)
 
 	// Scan the row into a Pokemon struct
 	var pokemon models.Pokemon
