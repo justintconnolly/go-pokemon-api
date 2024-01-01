@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/justintconnolly/pokemon-api/handlers"
 	_ "github.com/lib/pq"
 )
 
@@ -41,11 +42,10 @@ func main() {
 	defer dbConn.Close() // Ensure the connection is closed
 
 	//api logic will go here and utilize the database connection called db
-	http.HandleFunc("/api/v1/pokemon/", getPokemonByName)
-
-	http.ListenAndServe(":8080", nil)
+	http.HandleFunc("/api/v1/pokemon/", func(w http.ResponseWriter, r *http.Request) {
+		handlers.GetPokemonByName(dbConn, w, r)
+	})
 
 	log.Printf("Server starting on port %v", portString)
-
-	fmt.Println("Port:", portString)
+	http.ListenAndServe(":8080", nil)
 }
