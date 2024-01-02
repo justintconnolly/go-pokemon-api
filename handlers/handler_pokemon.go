@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
-	"unicode"
+	"strings"
 
 	"github.com/justintconnolly/pokemon-api/models"
 )
@@ -20,11 +20,10 @@ func GetPokemonByName(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Name parameter is required", http.StatusBadRequest)
 		return
 	}
-	runes := []rune(requestedName)
-	if len(runes) > 0 {
-		runes[0] = unicode.ToUpper(runes[0])
-	}
-	pokemonName := string(runes)
+
+	// Convert the Pokemon name to lowercase
+	lowerName := strings.ToLower(requestedName)
+	pokemonName := strings.ToUpper(lowerName[0:1]) + lowerName[1:]
 
 	// Execute the SQL query to fetch the Pokemon data
 	row := db.QueryRow("SELECT name, pokedex_number, type1, generation FROM pokemon WHERE name = $1", pokemonName)

@@ -3,3 +3,4 @@ test_env_config.go
 .env
 pokemon-api
 .vscode/
+toss.txt
