@@ -41,7 +41,7 @@ func main() {
 	}
 	defer dbConn.Close() // Ensure the connection is closed
 
-	//api logic will go here and utilize the database connection called db
+	//api logic will go here and utilize the database connection called dbConn
 	http.HandleFunc("/api/v1/pokemon/", func(w http.ResponseWriter, r *http.Request) {
 		handlers.GetPokemonByName(dbConn, w, r)
 	})

@@ -2,3 +2,4 @@ raw-data/
 test_env_config.go
 .env
 pokemon-api
+.vscode/
