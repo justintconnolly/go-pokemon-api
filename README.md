@@ -1,6 +1,8 @@
 # Gotta GO Query 'Em All - The Pokemon API 🥳
 Welcome to the Pokemon API! This API is your one-stop shop for getting data on all your favorite Pokemon.
 
+## Under Development, NOT CURRENTLY LIVE
+
 ---
 
 ***Features:***
