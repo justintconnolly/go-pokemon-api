@@ -46,11 +46,11 @@ Try it out with your favorite Pokemon! The API returns key info like name, Poked
 ### Local Development
 To run the API locally:
 
-Clone the repo
-Run go build
-Start the server with ./pokemon-api
-Make requests to http://localhost:8080/api/v1/pokemon
-Now you're ready to catch 'em all!
+- Clone the repo
+- Run go build
+- Start the server with ./pokemon-api
+- Make requests to http://localhost:8080/api/v1/pokemon
+- Now you're ready to catch 'em all!
 
 ___
 
