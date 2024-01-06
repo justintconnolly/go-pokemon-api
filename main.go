@@ -43,6 +43,11 @@ func main() {
 
 	//api logic will go here and utilize the database connection called dbConn
 	http.HandleFunc("/api/v1/pokemon/", func(w http.ResponseWriter, r *http.Request) {
+		if bucket.TakeAvailable(1) != 1 {
+			http.Error(w, "Too many requests", http.StatusTooManyRequests)
+			return
+		}
+
 		validateAPIKey(dbConn, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			handlers.GetPokemonByName(dbConn, w, r)
 		})).ServeHTTP(w, r)
